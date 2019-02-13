@@ -1,3 +1,311 @@
+
+//////////////////// Тема: Замыкания и область видимости
+// function makeCounter() {
+//   let currentCount = 1;
+ 
+//   return {
+//     name: 'Bob',
+//     getName: function() {
+//       return this.name;
+//     },
+//     getNext: function() {
+//       return currentCount++;
+//     },
+//     getPrivious: function() {
+//       return currentCount--;
+//     },
+//     set: function(value) {
+//       currentCount = value;
+//     },
+//     reset: function() {
+//         currentCount = 1;
+//     }  
+//   };
+// };
+
+// let counter = makeCounter();
+
+// console.log( counter.getNext() );
+// console.log( counter.getNext() );
+// console.log( counter.getNext() );
+
+// counter.set(10);
+
+// console.log( counter.getNext() );
+// console.log( counter.getNext() );
+// console.log( counter.getNext() );
+
+
+// console.log( counter.getPrivious() );
+// console.log( counter.getPrivious() );
+// console.log( counter.getPrivious() );
+
+// console.log( counter.getName() );
+
+
+// function makeCounter() {
+//   let currentCount = 1;
+  
+//   function counter() {
+//     return currentCount++;
+//   }
+  
+//   counter.set = function(value) {
+//     currentCount = value;
+//   };
+  
+//   counter.reset = function() {
+//     currentCount = 1;
+//   }
+  
+//   return counter;
+// };
+
+// let counter = makeCounter();
+
+// console.log(makeCounter.length);
+
+// for(let i = 0; i < counter.length; i++) {
+//   alert(counter[i]);
+// };
+
+/////////////////////////////N1
+/*
+let a = 2,
+    b = 3;
+
+function sum (a) {
+ return function (b) {
+   return a + b;
+ }
+};
+
+console.log( sum(a)(b) ); 
+// console.log( анонимная внетренняя функция(ее вызов c аргументом 'b') );  тоже самое что и на верху
+
+*/
+
+//////////////////////////////////////////////
+
+
+// let value = 'static';
+
+// function print() {
+//   console.log(value);
+// };
+
+// (function() {
+//   console.log(value);
+//   print()
+// })();
+
+// самовызывающиеся функция сработает первой при консол логе в ней
+
+// let arr = [];
+
+// function addTodo(todo) {
+//   arr.push(todo);
+//   return todo;
+// }
+
+// console.log(addTodo('замыкания в Js'));
+
+// console.log(arr)
+
+
+
+
+
+
+// var arr = [];
+// var func = function(callback) {
+//  return function() {
+//    arr.push('hi')
+  
+//  }
+// };
+
+// func()()
+// console.log();
+//  console.log(arr);
+
+// var hello = (function(name) {
+//   return 'Hello' + '' + name;
+// }('Alex'));
+
+// console.log(hello)
+
+
+// console.log((function() {
+//   var currentCount = 1;
+  
+//    function counter() {
+//     return ++currentCount;
+//   }
+  
+  
+//   return counter; // возврат результата выполнения (2)
+// })());
+
+
+
+
+// var b = makeCounter();
+
+// alert( b ); // 1
+
+
+
+///////////////////////////////////////////////////////// задача n2
+/*
+
+function myBuffer(){
+    let str = "";
+  
+   return function buffer(value){
+    str = str + " " + value;
+    return str;
+    console.log(str);
+  }
+  
+  // counter.reset = return function() {
+  //   str = "";
+  // };
+
+  
+};
+
+let counter = myBuffer();
+
+console.log(counter('hello'));
+console.log(counter('my'));
+console.log(counter('friend'));
+
+*/
+
+///////////////////////////////////////////////задача н3
+/*
+function myBuffer(){
+     let str = "";
+  
+     function buffer(value){
+     
+       if (arguments.length == 0 ) {
+         return str;
+       } else {
+         return str += " " + value;
+       }
+  };
+  
+    buffer.reset = function() {
+     return str = "";
+    };
+   
+  return buffer;  
+};
+
+ let counter = myBuffer();
+
+  console.log(counter('hello'));
+  console.log(counter("my"));
+ // console.log(counter('friend'));
+  counter.reset();
+ // console.log(counter('test'));
+ console.log(counter());
+
+/*
+
+//////////////////////\\\\\\\\\\\\\\\\\\
+
+/*
+function makeArmy() {          //outer
+
+  var shooters = [];         // var
+
+ 
+    return function() { // функция-стрелок
+     for (var i = 0; i < 10; i++) {
+     shooters.push(i);
+      alert( i ); // выводит свой номер
+      console.log(i);
+    
+    };
+  }
+}
+
+var army = makeArmy();
+
+//console.log(makeArmy());
+//army(); // стрелок выводит 10, а должен 0
+//army[2](); // стрелок выводит 10...
+// .. все стрелки выводят 10 вместо 0,1,2...9
+
+*/
+
+/*
+function makeArmy(shooters) {
+  let soldiers = [];
+  
+  return function() {
+    for (let i = 0; i <= soldiers.length; i++) {
+      soldiers.push(i);
+      console.log(soldiers);
+      return soldiers;
+    }
+  }
+  return soldiers; 
+}
+
+console.log(makeArmy(3));
+*/
+
+
+
+// var users = [{
+//   name: "Вася",
+//   surname: 'Иванов',
+//   age: 20
+// }, {
+//   name: "Петя",
+//   surname: 'Чапаев',
+//   age: 25
+// }, {
+//   name: "Маша",
+//   surname: 'Медведева',
+//   age: 18
+// }];
+
+// function byField(field) {
+//   users.sort(function(a, b) {
+//   return a[field] > b[field] ? 1 : -1;
+//   });
+// };
+
+
+// users.sort(byField('name'));
+// users.forEach(function(user) {
+//   alert( user.name );
+// }); // Вася, Маша, Петя
+
+// users.sort(byField('age'));
+// users.forEach(function(user) {
+//   alert( user.name );
+// }); // Маша, Вася, Петя
+
+// let user = {
+//   name: "Bob",
+//   age: 20,
+//   lastName: "Smith",
+//   sex: "Male"
+// };
+
+// for (let key in user) {
+//   console.log(key.length);
+// };
+
+
+/////////////////////////////////////////////////////
+////////////  Тема: создание объектов через 'new'
 // Human 3 объекта инженер(должен быть метод инжа), спортсмен(памп), врач(диагностика) умение ходить 
 /*
 let human = new Human();
